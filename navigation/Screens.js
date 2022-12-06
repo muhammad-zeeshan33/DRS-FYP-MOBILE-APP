@@ -24,6 +24,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import CreateReports from '../screens/ReportDisasters/CreateReport';
 import FloodForm from '../screens/ReportDisasters/FloodForm';
 import ReportDetails from '../screens/ReportDisasters/ReportDetails';
+import DamageReportDetails from '../screens/DamageReprots/ReportDetails';
 import Ticket from '../screens/TicketInformation/Ticket';
 import CreateAccount from '../screens/CreateAccount';
 import TrendingReports from '../screens/TrendingReports.js/TrendingReports';
@@ -118,6 +119,11 @@ function DamageReportsStack(props) {
       <Stack.Screen
         name="Create Damage Report"
         component={Create}
+        // options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Report Details"
+        component={DamageReportDetails}
         // options={{ headerShown: false }}
       />
       {/* <Stack.Screen name="Create Report" component={CreateReports} />

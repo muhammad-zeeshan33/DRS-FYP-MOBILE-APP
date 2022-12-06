@@ -1,7 +1,7 @@
 import React from 'react';
 import { withNavigation } from '@react-navigation/compat';
 import PropTypes from 'prop-types';
-import { StyleSheet, Image, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Image, TouchableWithoutFeedback, View } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 import { Video } from 'expo-av';
 
@@ -33,8 +33,6 @@ class Card extends React.Component {
       styles.shadow,
     ];
 
-    console.log(item.image, 'URL');
-    console.log(video, 'VIDEO');
     return (
       <Block row={horizontal} card flex style={cardContainer}>
         <TouchableWithoutFeedback
@@ -109,6 +107,34 @@ class Card extends React.Component {
                 <Block />
               )}
             </Block>
+            {item.approved ? (
+              <Block flex>
+                <View
+                  style={{
+                    backgroundColor: '#4BB543',
+                    width: 50,
+                    padding: 5,
+                    borderRadius: 6,
+                  }}
+                >
+                  <Text style={{ color: '#fff', fontSize: 8, textAlign: 'center' }}>Approved</Text>
+                </View>
+                {/* <Badge status="success" value="Approved" /> */}
+              </Block>
+            ) : (
+              <Block>
+                <View
+                  style={{
+                    backgroundColor: '#ffcc00',
+                    width: 50,
+                    padding: 5,
+                    borderRadius: 6,
+                  }}
+                >
+                  <Text style={{ color: 'fff', fontSize: 8, textAlign: 'center' }}>Pending</Text>
+                </View>
+              </Block>
+            )}
             <Block right={ctaRight ? true : false}>
               <Text
                 style={styles.articleButton}
@@ -161,6 +187,7 @@ const styles = StyleSheet.create({
   },
   image: {
     // borderRadius: 3,
+    // marginTop: 10,
   },
   horizontalImage: {
     height: 122,

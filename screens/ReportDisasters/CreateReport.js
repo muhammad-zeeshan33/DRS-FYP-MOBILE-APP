@@ -38,27 +38,55 @@ class CreateReports extends React.Component {
     horizontal: true,
   };
 
-  renderCards = () => {
-    return (
-      <Block style={styles.container}>
-        <Block flex row>
-          <Card item={this.floods} style={{ marginRight: theme.SIZES.BASE }} navigateTo="Record" />
-          <Card item={this.earthquack} navigateTo="Record" />
-        </Block>
-      </Block>
-    );
-  };
   render() {
     return (
-      <Block flex>
-        <ScrollView showsVerticalScrollIndicator={false}>{this.renderCards()}</ScrollView>
-      </Block>
+      <View style={styles.container}>
+        <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('Record')}>
+          <View
+            style={{
+              backgroundColor: '#f5f5f5',
+              width: width / 2.3,
+              height: height / 4,
+              borderRadius: 10,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: 20,
+            }}
+          >
+            <Ionicons name="rainy-outline" size={50} x />
+            <Text style={{ fontWeight: 'bold', marginTop: 20 }}>Floods</Text>
+          </View>
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('Record')}>
+          <View
+            style={{
+              backgroundColor: '#f5f5f5',
+              width: width / 2.3,
+              height: height / 4,
+              borderRadius: 10,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: 20,
+              marginLeft: 10,
+            }}
+          >
+            <Ionicons name="earth-outline" size={50} />
+            <Text style={{ fontWeight: 'bold', marginTop: 20 }}>Earthquake</Text>
+          </View>
+        </TouchableWithoutFeedback>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
+    // flex: 1,
+    backgroundColor: '#fff',
+    // justifyContent:
+    flexDirection: 'row',
+    height: height,
+
     paddingHorizontal: theme.SIZES.BASE,
   },
   title: {

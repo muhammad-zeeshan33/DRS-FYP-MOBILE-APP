@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
+import { RefreshControl, StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
 import React, { useContext, useEffect, useState } from 'react';
 import axios from '../../axios';
 import AuthContext from '../../contexts/AuthContext';
@@ -11,6 +11,7 @@ const { width } = Dimensions.get('screen');
 
 const DamageReports = () => {
   const [reports, setReports] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
 
   const { user } = useContext(AuthContext);
   const config = {
@@ -20,7 +21,16 @@ const DamageReports = () => {
     },
   };
 
+  const onRefresh = async () => {
+    setRefreshing(true);
+    loadData();
+    setRefreshing(false);
+  };
   useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = () => {
     (async () => {
       try {
         const res = await axios.get('/api/end-users/damage-reports/get/' + user._id, config);
@@ -28,7 +38,7 @@ const DamageReports = () => {
         if (res.data.reports) {
           const transformed = res.data.reports.map((report) => {
             return {
-              image: require('../../assets/imgs/reg-img.jpg'),
+              image: require('../../assets/imgs/damage.png'),
               title: report.title,
               subtitle: 'Pkr ' + report.expectedDamageCost,
               description: report.asset,
@@ -47,11 +57,13 @@ const DamageReports = () => {
         console.log(error);
       }
     })();
-  }, []);
+  };
 
   let content = null;
   if (reports && reports.length > 0) {
-    content = reports.map((r) => <Card key={r.key} item={r} horizontal />);
+    content = reports.map((r) => (
+      <Card key={r.key} item={r} horizontal navigateTo="Report Details" navigationData={r} />
+    ));
   } else {
     content = (
       <View style={{ alignSelf: 'center' }}>
@@ -67,11 +79,12 @@ const DamageReports = () => {
   }
   return (
     <Block style={styles.container}>
-      <ScrollView style={styles.reports}>
-        {reports &&
-          reports.map((r) => {
-            return;
-          })}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+        style={styles.reports}
+      >
+        {content}
       </ScrollView>
     </Block>
   );
@@ -81,8 +94,10 @@ export default DamageReports;
 
 const styles = StyleSheet.create({
   container: {
+    // flex: 1,
     width: width,
     backgroundColor: '#fff',
+    height: '100%',
   },
   reports: {
     width: width - theme.SIZES.BASE * 2,

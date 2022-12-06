@@ -1,11 +1,17 @@
 import React, { useContext } from 'react';
-import { StyleSheet, Dimensions, ScrollView, Image, ImageBackground, Platform } from 'react-native';
-import { Block, Text, theme, Button as GaButton } from 'galio-framework';
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  Image,
+  ImageBackground,
+  Platform,
+} from 'react-native';
+import { Block, Text, theme } from 'galio-framework';
 import AuthContext from '../contexts/AuthContext';
 
-import { Button } from '../components';
 import { Images, nowTheme } from '../constants';
-import { HeaderHeight } from '../constants/utils';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -31,7 +37,7 @@ const Profile = () => {
           <Block flex style={styles.profileCard}>
             <Block style={{ position: 'absolute', width: width, zIndex: 5, paddingHorizontal: 20 }}>
               <Block middle style={{ top: height * 0.15 }}>
-                <Image source={Images.ProfilePicture} style={styles.avatar} />
+                <Image source={require('../assets/avatar.png')} style={styles.avatar} />
               </Block>
               <Block style={{ top: height * 0.2 }}>
                 <Block middle>
@@ -62,48 +68,6 @@ const Profile = () => {
                     Effectee Account
                   </Text>
                 </Block>
-                {/* <Block style={styles.info}>
-                  <Block row space="around">
-                    <Block middle>
-                      <Text
-                        size={18}
-                        color="white"
-                        style={{ marginBottom: 4, fontFamily: 'montserrat-bold' }}
-                      >
-                        2K
-                      </Text>
-                      <Text style={{ fontFamily: 'montserrat-regular' }} size={14} color="white">
-                        Friends
-                      </Text>
-                    </Block>
-
-                    <Block middle>
-                      <Text
-                        color="white"
-                        size={18}
-                        style={{ marginBottom: 4, fontFamily: 'montserrat-bold' }}
-                      >
-                        26
-                      </Text>
-                      <Text style={{ fontFamily: 'montserrat-regular' }} size={14} color="white">
-                        Comments
-                      </Text>
-                    </Block>
-
-                    <Block middle>
-                      <Text
-                        color="white"
-                        size={18}
-                        style={{ marginBottom: 4, fontFamily: 'montserrat-bold' }}
-                      >
-                        48
-                      </Text>
-                      <Text style={{ fontFamily: 'montserrat-regular' }} size={14} color="white">
-                        Bookmarks
-                      </Text>
-                    </Block>
-                  </Block>
-                </Block> */}
               </Block>
             </Block>
 
@@ -111,37 +75,7 @@ const Profile = () => {
               middle
               row
               style={{ position: 'absolute', width: width, top: height * 0.6 - 26, zIndex: 99 }}
-            >
-              {/* <Button
-                style={{ width: 114, height: 44, marginHorizontal: 5, elevation: 0 }}
-                textStyle={{ fontSize: 16 }}
-                round
-              >
-                Follow
-              </Button> */}
-              <GaButton
-                round
-                onlyIcon
-                shadowless
-                icon="twitter"
-                iconFamily="Font-Awesome"
-                iconColor={nowTheme.COLORS.WHITE}
-                iconSize={nowTheme.SIZES.BASE * 1.375}
-                color={'#888888'}
-                style={[styles.social, styles.shadow]}
-              />
-              <GaButton
-                round
-                onlyIcon
-                shadowless
-                icon="pinterest"
-                iconFamily="Font-Awesome"
-                iconColor={nowTheme.COLORS.WHITE}
-                iconSize={nowTheme.SIZES.BASE * 1.375}
-                color={'#888888'}
-                style={[styles.social, styles.shadow]}
-              />
-            </Block>
+            ></Block>
           </Block>
         </ImageBackground>
       </Block>
@@ -161,50 +95,118 @@ const Profile = () => {
                   zIndex: 2,
                 }}
               >
-                About me
+                General Information
               </Text>
-              <Text
-                size={16}
-                muted
-                style={{
-                  textAlign: 'center',
-                  fontFamily: 'montserrat-regular',
-                  zIndex: 2,
-                  lineHeight: 25,
-                  color: '#9A9A9A',
-                  paddingHorizontal: 15,
-                }}
-              >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                irure dolor in reprehenderit in voluptate
-              </Text>
-            </Block>
-            <Block row style={{ paddingVertical: 14, paddingHorizontal: 15 }} space="between">
-              <Text bold size={16} color="#2c2c2c" style={{ marginTop: 3 }}>
-                Album
-              </Text>
-              <Button
-                small
-                color="transparent"
-                textStyle={{ color: nowTheme.COLORS.PRIMARY, fontSize: 14 }}
-              >
-                View all
-              </Button>
-            </Block>
-
-            <Block style={{ paddingBottom: -HeaderHeight * 2, paddingHorizontal: 15 }}>
-              <Block row space="between" style={{ flexWrap: 'wrap' }}>
-                {Images.Viewed.map((img, imgIndex) => (
-                  <Image
-                    source={img}
-                    key={`viewed-${img}`}
-                    resizeMode="cover"
-                    style={styles.thumb}
-                  />
-                ))}
-              </Block>
+              <View>
+                <View
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    flexDirection: 'row',
+                  }}
+                >
+                  <Text
+                    size={16}
+                    muted
+                    style={{
+                      textAlign: 'center',
+                      fontFamily: 'montserrat-regular',
+                      zIndex: 2,
+                      lineHeight: 25,
+                      color: '#9A9A9A',
+                      paddingHorizontal: 15,
+                    }}
+                  >
+                    Name
+                  </Text>
+                  <Text
+                    size={16}
+                    muted
+                    style={{
+                      textAlign: 'center',
+                      fontFamily: 'montserrat-regular',
+                      zIndex: 2,
+                      lineHeight: 25,
+                      color: '#9A9A9A',
+                      paddingHorizontal: 15,
+                    }}
+                  >
+                    {user.name}
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    flexDirection: 'row',
+                  }}
+                >
+                  <Text
+                    size={16}
+                    muted
+                    style={{
+                      textAlign: 'center',
+                      fontFamily: 'montserrat-regular',
+                      zIndex: 2,
+                      lineHeight: 25,
+                      color: '#9A9A9A',
+                      paddingHorizontal: 15,
+                    }}
+                  >
+                    Email
+                  </Text>
+                  <Text
+                    size={16}
+                    muted
+                    style={{
+                      textAlign: 'center',
+                      fontFamily: 'montserrat-regular',
+                      zIndex: 2,
+                      lineHeight: 25,
+                      color: '#9A9A9A',
+                      paddingHorizontal: 15,
+                    }}
+                  >
+                    {user.email}
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    flexDirection: 'row',
+                  }}
+                >
+                  <Text
+                    size={16}
+                    muted
+                    style={{
+                      textAlign: 'center',
+                      fontFamily: 'montserrat-regular',
+                      zIndex: 2,
+                      lineHeight: 25,
+                      color: '#9A9A9A',
+                      paddingHorizontal: 15,
+                    }}
+                  >
+                    CNIC
+                  </Text>
+                  <Text
+                    size={16}
+                    muted
+                    style={{
+                      textAlign: 'center',
+                      fontFamily: 'montserrat-regular',
+                      zIndex: 2,
+                      lineHeight: 25,
+                      color: '#9A9A9A',
+                      paddingHorizontal: 15,
+                    }}
+                  >
+                    {user.cnic}
+                  </Text>
+                </View>
+              </View>
             </Block>
           </Block>
         </ScrollView>
