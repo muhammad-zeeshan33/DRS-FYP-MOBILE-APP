@@ -1,6 +1,8 @@
 import React from 'react';
 import { withNavigation } from '@react-navigation/compat';
 import PropTypes from 'prop-types';
+import Ionicons from '@expo/vector-icons/Ionicons';
+
 import { StyleSheet, Image, TouchableWithoutFeedback, View } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 import { Video } from 'expo-av';
@@ -32,7 +34,7 @@ class Card extends React.Component {
       horizontal ? styles.horizontalStyles : styles.verticalStyles,
       styles.shadow,
     ];
-
+    console.log(navigationData);
     return (
       <Block row={horizontal} card flex style={cardContainer}>
         <TouchableWithoutFeedback
@@ -57,7 +59,14 @@ class Card extends React.Component {
             )}
           </Block>
         </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate(navigateTo)}>
+
+        <TouchableWithoutFeedback
+          onPress={() =>
+            navigationData
+              ? navigation.navigate(navigateTo, navigationData)
+              : navigation.navigate(navigateTo)
+          }
+        >
           <Block flex space="between" style={styles.cardDescription}>
             <Block flex>
               <Text
@@ -133,6 +142,23 @@ class Card extends React.Component {
                 >
                   <Text style={{ color: 'fff', fontSize: 8, textAlign: 'center' }}>Pending</Text>
                 </View>
+              </Block>
+            )}
+
+            {item.resolved && (
+              <Block flex style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <Text>Current Status:</Text>
+                <View
+                  style={{
+                    backgroundColor: '#4BB543',
+                    width: 50,
+                    padding: 5,
+                    borderRadius: 6,
+                  }}
+                >
+                  <Text style={{ color: '#fff', fontSize: 8, textAlign: 'center' }}>Resolved</Text>
+                </View>
+                {/* <Badge status="success" value="Approved" /> */}
               </Block>
             )}
             <Block right={ctaRight ? true : false}>

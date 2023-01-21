@@ -30,6 +30,7 @@ import CreateAccount from '../screens/CreateAccount';
 import TrendingReports from '../screens/TrendingReports.js/TrendingReports';
 import DamageReports from '../screens/DamageReprots/DamageReports';
 import Create from '../screens/DamageReprots/Create';
+import Alerts from '../screens/Alerts/Alerts';
 
 const { width } = Dimensions.get('screen');
 
@@ -82,16 +83,23 @@ function ArticlesStack(props) {
   );
 }
 
-function TrendingReportsStack() {
+function AlertsStack() {
   return (
     <Stack.Navigator
-      initialRouteName="Trending"
+      initialRouteName="Alerts"
       screenOptions={{
         mode: 'card',
         headerShown: 'screen',
       }}
     >
-      <Stack.Screen options={{ headerShown: false }} name="Trending" component={TrendingReports} />
+      <Stack.Screen
+        options={{
+          header: ({ navigation }) => <Header title="Alerts" navigation={navigation} />,
+          backgroundColor: '#FFFFFF',
+        }}
+        name="Alerts"
+        component={Alerts}
+      />
     </Stack.Navigator>
   );
 }
@@ -122,7 +130,7 @@ function DamageReportsStack(props) {
         // options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Report Details"
+        name="Fund Allottment Details"
         component={DamageReportDetails}
         // options={{ headerShown: false }}
       />
@@ -328,8 +336,8 @@ function AppStack(props) {
         }}
       />
       <Drawer.Screen
-        name="Trending Reports"
-        component={TrendingReportsStack}
+        name="Alerts"
+        component={AlertsStack}
         options={{
           headerShown: false,
         }}

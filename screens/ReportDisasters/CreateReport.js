@@ -53,7 +53,7 @@ class CreateReports extends React.Component {
               marginTop: 20,
             }}
           >
-            <Ionicons name="rainy-outline" size={50} x />
+            <Ionicons name="rainy-outline" size={50} />
             <Text style={{ fontWeight: 'bold', marginTop: 20 }}>Floods</Text>
           </View>
         </TouchableWithoutFeedback>

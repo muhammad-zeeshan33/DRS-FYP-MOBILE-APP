@@ -30,6 +30,16 @@ class DrawerItem extends React.Component {
             style={{ opacity: 0.5 }}
           />
         );
+      case 'Alerts':
+        return (
+          <Icon
+            name="bell"
+            family="NowExtra"
+            size={18}
+            color={focused ? nowTheme.COLORS.PRIMARY : 'black'}
+            style={{ opacity: 0.5 }}
+          />
+        );
       case 'Trending Reports':
         return (
           <Icon

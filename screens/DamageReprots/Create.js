@@ -24,6 +24,8 @@ const Create = ({ navigation }) => {
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(null);
+  const [uploading, setUploading] = useState(false);
+
   const [disasterPickerOpen, setDisasterPickerOpen] = useState(false);
   const [assetTypeOpen, setassetTypeOpen] = useState(false);
 
@@ -47,6 +49,7 @@ const Create = ({ navigation }) => {
     { label: 'Building', value: 'Building' },
     { label: 'Gadgets', value: 'Gadgets' },
   ]);
+
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -63,6 +66,7 @@ const Create = ({ navigation }) => {
       const blob = await res.blob();
       setFile(response);
       const uploadTask = uploadBytesResumable(storageRef, blob);
+      setUploading(true);
       uploadTask.on(
         'state_changed',
         (snapshot) => {
@@ -76,6 +80,7 @@ const Create = ({ navigation }) => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
             console.log(downloadURL);
             setImageURL(downloadURL);
+            setUploading(false);
           });
         }
       );
@@ -93,6 +98,7 @@ const Create = ({ navigation }) => {
       const blob = await res.blob();
       setOwnseShipFile(response);
       const uploadTask = uploadBytesResumable(storageRef, blob);
+      setUploading(true);
       uploadTask.on(
         'state_changed',
         (snapshot) => {
@@ -106,6 +112,7 @@ const Create = ({ navigation }) => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
             console.log(downloadURL);
             setOwnseShipFileURL(downloadURL);
+            setUploading(false);
           });
         }
       );
@@ -231,6 +238,11 @@ const Create = ({ navigation }) => {
                     </TouchableOpacity>
                     <Text>{ownseShipFile && ownseShipFile.name}</Text>
                   </Block>
+                  {uploading && (
+                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                      <Text style={{ color: 'green' }}>Uploading Images...</Text>
+                    </View>
+                  )}
                   {assetType &&
                     imageURL &&
                     disaster &&
